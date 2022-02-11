@@ -51,8 +51,8 @@
 
 ### 開發工具
 
-- Node.js 10.15.0
-- Express 4.17.1
-- Express-Handlebars 5.3.3
+- Node.js 16.14.0
+- Express 4.17.2
+- Express-Handlebars 3.0.0
 - Bootstrap 4.3.1
-- Font-awesome 5.8.1
+- Font-awesome 5.15.4
