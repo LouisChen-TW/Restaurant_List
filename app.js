@@ -1,7 +1,8 @@
 const express = require("express");
 const exphbs = require("express-handlebars");
 const mongoose = require("mongoose");
-const restaurantList = require("./restaurant.json");
+const restaurant = require("./models/restaurant");
+const restaurantList = require("./models/restaurant");
 const app = express();
 const port = 3000;
 
@@ -25,28 +26,45 @@ app.use(express.static("public"));
 
 // render index page
 app.get("/", (req, res) => {
-  res.render("index", { restaurants: restaurantList.results });
+  restaurantList
+    .find()
+    .lean()
+    .then((restaurants) => res.render("index", { restaurants }))
+    .catch((error) => console.error(error));
 });
 
 // render show page
 app.get("/restaurants/:restaurants_id", (req, res) => {
-  console.log(req.params.restaurants_id);
-  const restaurant = restaurantList.results.find(
-    (restaurant) => restaurant.id.toString() === req.params.restaurants_id
-  );
-  console.log(restaurant);
-  res.render("show", { restaurant: restaurant });
+  const id = req.params.restaurants_id;
+  return restaurantList
+    .findById(id)
+    .lean()
+    .then((restaurant) => {
+      res.render("show", { restaurant });
+    })
+    .catch((error) => console.log("error"));
 });
 
 // render search page
 app.get("/search", (req, res) => {
-  console.log(req.query.keyword);
-  const restaurants = restaurantList.results.filter(
-    (restaurant) =>
-      restaurant.name.toLowerCase().includes(req.query.keyword.toLowerCase()) ||
-      restaurant.category.includes(req.query.keyword)
-  );
-  res.render("index", { restaurants: restaurants, keyword: req.query.keyword });
+  const keyword = req.query.keyword.trim().toLowerCase();
+  return restaurantList
+    .find()
+    .lean()
+    .then((restaurants) => {
+      const filterRestaurants = restaurants.filter(
+        (restaurant) =>
+          restaurant.name.toLowerCase().includes(keyword) ||
+          restaurant.category.toLowerCase().includes(keyword)
+      );
+      res.render("index", {
+        restaurants: filterRestaurants,
+        keyword: req.query.keyword,
+      });
+    })
+    .catch((error) => {
+      console.log("error");
+    });
 });
 
 app.listen(port, () => {
