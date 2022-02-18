@@ -36,6 +36,39 @@ app.get("/", (req, res) => {
     .catch((error) => console.error(error));
 });
 
+// render edit page
+app.get("/restaurants/:id/edit", (req, res) => {
+  const id = req.params.id;
+  restaurantList
+    .findById(id)
+    .lean()
+    .then((restaurant) => res.render("edit", { restaurant }))
+    .catch((error) => console.log(error));
+});
+
+// save edit page
+app.post("/restaurants/:id/edit", (req, res) => {
+  const id = req.params.id;
+  const newRestaurant = req.body;
+  return restaurantList
+    .findById(id)
+    .then((restaurant) => {
+      restaurant.name = newRestaurant.name;
+      restaurant.name_en = newRestaurant.name_en;
+      restaurant.category = newRestaurant.category;
+      restaurant.image = newRestaurant.image;
+      restaurant.location = newRestaurant.location;
+      restaurant.phone = newRestaurant.phone;
+      restaurant.google_map = newRestaurant.google_map;
+      restaurant.rating = newRestaurant.rating;
+      restaurant.description = newRestaurant.description;
+      // console.log(restaurant);
+      return restaurant.save();
+    })
+    .then(res.redirect("/"))
+    .catch((error) => console.log(error));
+});
+
 // render create page
 app.get("/restaurants/create", (req, res) => {
   res.render("create");
