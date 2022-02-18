@@ -69,6 +69,16 @@ app.post("/restaurants/:id/edit", (req, res) => {
     .catch((error) => console.log(error));
 });
 
+// delete restaurant
+app.post("/restaurants/:id/delete", (req, res) => {
+  const id = req.params.id;
+  restaurantList
+    .findById(id)
+    .then((restaurant) => restaurant.remove())
+    .then(res.redirect("/"))
+    .catch((error) => console.log(error));
+});
+
 // render create page
 app.get("/restaurants/create", (req, res) => {
   res.render("create");
@@ -77,7 +87,6 @@ app.get("/restaurants/create", (req, res) => {
 // submit create page
 app.post("/restaurants/new", (req, res) => {
   const restaurant = req.body;
-  console.log(req.body);
   return restaurantList
     .create({
       name: restaurant.name,
