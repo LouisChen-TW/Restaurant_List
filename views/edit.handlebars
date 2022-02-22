@@ -1,5 +1,5 @@
 <div class="container mt-3">
-  <form action="/restaurants/{{restaurant._id}}/edit" method="POST">
+  <form id="form" action="/restaurants/{{restaurant._id}}/edit" method="POST">
     <div class="form-row">
       <div class="col-md-6 mb-3">
         <label for="name">餐廳中文名稱</label>
@@ -12,6 +12,7 @@
           value="{{restaurant.name}}"
           required
         />
+        <div class="invalid-feedback">請輸入內容 🙏</div>
       </div>
       <div class="col-md-6 mb-3">
         <label for="name_en">餐廳英文名稱</label>
@@ -24,6 +25,7 @@
           placeholder="i.e. Din Tai Fung"
           required
         />
+        <div class="invalid-feedback">請輸入內容 🙏</div>
       </div>
     </div>
     <div class="form-row">
@@ -38,6 +40,7 @@
           placeholder="i.e. 咖啡、美式、義式"
           required
         />
+        <div class="invalid-feedback">請輸入內容 🙏</div>
       </div>
       <div class="col-md-8 mb-3">
         <label for="image">上傳照片網址</label>
@@ -50,6 +53,7 @@
           placeholder="https://images.unsplash.com/..."
           required
         />
+        <div class="invalid-feedback">請輸入內容 🙏</div>
       </div>
     </div>
     <div class="form-row">
@@ -64,6 +68,7 @@
           placeholder="i.e. 台北市大安區信義路二段194號"
           required
         />
+        <div class="invalid-feedback">請輸入內容 🙏</div>
       </div>
       <div class="col-md-4 mb-3">
         <label for="phone">電話號碼</label>
@@ -76,6 +81,7 @@
           placeholder="i.e. 02 2321 8928"
           required
         />
+        <div class="invalid-feedback">請輸入內容 🙏</div>
       </div>
     </div>
     <div class="form-row">
@@ -90,6 +96,7 @@
           placeholder="i.e. https://goo.gl/maps/RC6PsmvgxsVnFdbSA"
           required
         />
+        <div class="invalid-feedback">請輸入內容 🙏</div>
       </div>
       <div class="col-md-4 mb-3">
         <label for="rating">評價</label>
@@ -105,6 +112,7 @@
           step="any"
           required
         />
+        <div class="invalid-feedback">請輸入內容 🙏</div>
       </div>
     </div>
     <div class="form-group">
@@ -117,6 +125,13 @@
         placeholder="鼎泰豐（Din Tai Fung）是臺灣一家以麵食產銷為主的連鎖餐廳，以小籠包聞名。 1958年開設於臺北市信義路，最初爲流行而於1970年代起兼賣小籠包，從此發跡。 1996年，鼎泰豐拓展了日本市場，在日本迅速掀起一股小籠包熱，自此廣獲好評，曾爲《紐約時報》推薦爲“世界十大美食餐廳”之一。"
       >{{restaurant.description}}</textarea>
     </div>
-    <button class="btn btn-primary" type="submit">完成編輯</button>
+    <button
+      id="submitButton"
+      class="btn btn-primary"
+      type="submit"
+    >完成編輯</button>
   </form>
+  <a href="/" class="pb-5">
+    <button class="btn btn-danger">取消</button>
+  </a>
 </div>
