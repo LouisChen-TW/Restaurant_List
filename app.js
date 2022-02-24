@@ -104,8 +104,8 @@ app.post("/restaurants/new", (req, res) => {
 });
 
 // render show page
-app.get("/restaurants/:restaurants_id", (req, res) => {
-  const id = req.params.restaurants_id;
+app.get("/restaurants/:id", (req, res) => {
+  const id = req.params.id;
   return restaurantList
     .findById(id)
     .lean()
