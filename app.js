@@ -51,20 +51,7 @@ app.post("/restaurants/:id/edit", (req, res) => {
   const id = req.params.id;
   const newRestaurant = req.body;
   return restaurantList
-    .findById(id)
-    .then((restaurant) => {
-      restaurant.name = newRestaurant.name;
-      restaurant.name_en = newRestaurant.name_en;
-      restaurant.category = newRestaurant.category;
-      restaurant.image = newRestaurant.image;
-      restaurant.location = newRestaurant.location;
-      restaurant.phone = newRestaurant.phone;
-      restaurant.google_map = newRestaurant.google_map;
-      restaurant.rating = newRestaurant.rating;
-      restaurant.description = newRestaurant.description;
-      // console.log(restaurant);
-      return restaurant.save();
-    })
+    .findOneAndUpdate({ _id: id }, newRestaurant)
     .then(res.redirect("/"))
     .catch((error) => console.log(error));
 });
@@ -88,17 +75,7 @@ app.get("/restaurants/create", (req, res) => {
 app.post("/restaurants/new", (req, res) => {
   const restaurant = req.body;
   return restaurantList
-    .create({
-      name: restaurant.name,
-      name_en: restaurant.name_en,
-      category: restaurant.category,
-      image: restaurant.image,
-      location: restaurant.location,
-      phone: restaurant.phone,
-      google_map: restaurant.google_map,
-      rating: restaurant.rating,
-      description: restaurant.description,
-    })
+    .create(restaurant)
     .then(() => res.redirect("/"))
     .catch((error) => console.log(error));
 });
@@ -117,7 +94,7 @@ app.get("/restaurants/:id", (req, res) => {
 
 // render search page
 app.get("/search", (req, res) => {
-  const keyword = req.query.keyword.trim().toLowerCase();
+  const keyword = req.query.keyword.replace(/ /g, "").toLowerCase();
   return restaurantList
     .find()
     .lean()
@@ -127,10 +104,14 @@ app.get("/search", (req, res) => {
           restaurant.name.toLowerCase().includes(keyword) ||
           restaurant.category.toLowerCase().includes(keyword)
       );
-      res.render("index", {
-        restaurants: filterRestaurants,
-        keyword: req.query.keyword,
-      });
+      if (!filterRestaurants.length) {
+        res.render("notFound", { keyword: req.query.keyword });
+      } else {
+        res.render("index", {
+          restaurants: filterRestaurants,
+          keyword: req.query.keyword,
+        });
+      }
     })
     .catch((error) => {
       console.log("error");
