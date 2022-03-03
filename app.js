@@ -2,7 +2,8 @@ const express = require("express");
 const exphbs = require("express-handlebars");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const restaurantList = require("./models/restaurant");
+const methodOverride = require("method-override");
+const routes = require("./routes");
 const app = express();
 const port = 3000;
 
@@ -27,96 +28,11 @@ app.set("view engine", "handlebars");
 // setting static files
 app.use(express.static("public"));
 
-// render index page
-app.get("/", (req, res) => {
-  restaurantList
-    .find()
-    .lean()
-    .then((restaurants) => res.render("index", { restaurants }))
-    .catch((error) => console.error(error));
-});
+// use methodoverride
+app.use(methodOverride("_method"));
 
-// render edit page
-app.get("/restaurants/:id/edit", (req, res) => {
-  const id = req.params.id;
-  restaurantList
-    .findById(id)
-    .lean()
-    .then((restaurant) => res.render("edit", { restaurant }))
-    .catch((error) => console.log(error));
-});
-
-// save edit page
-app.post("/restaurants/:id/edit", (req, res) => {
-  const id = req.params.id;
-  const newRestaurant = req.body;
-  return restaurantList
-    .findOneAndUpdate({ _id: id }, newRestaurant)
-    .then(res.redirect("/"))
-    .catch((error) => console.log(error));
-});
-
-// delete restaurant
-app.post("/restaurants/:id/delete", (req, res) => {
-  const id = req.params.id;
-  restaurantList
-    .findById(id)
-    .then((restaurant) => restaurant.remove())
-    .then(res.redirect("/"))
-    .catch((error) => console.log(error));
-});
-
-// render create page
-app.get("/restaurants/create", (req, res) => {
-  res.render("create");
-});
-
-// submit create page
-app.post("/restaurants/new", (req, res) => {
-  const restaurant = req.body;
-  return restaurantList
-    .create(restaurant)
-    .then(() => res.redirect("/"))
-    .catch((error) => console.log(error));
-});
-
-// render show page
-app.get("/restaurants/:id", (req, res) => {
-  const id = req.params.id;
-  return restaurantList
-    .findById(id)
-    .lean()
-    .then((restaurant) => {
-      res.render("show", { restaurant });
-    })
-    .catch((error) => console.log("error"));
-});
-
-// render search page
-app.get("/search", (req, res) => {
-  const keyword = req.query.keyword.replace(/ /g, "").toLowerCase();
-  return restaurantList
-    .find()
-    .lean()
-    .then((restaurants) => {
-      const filterRestaurants = restaurants.filter(
-        (restaurant) =>
-          restaurant.name.toLowerCase().includes(keyword) ||
-          restaurant.category.toLowerCase().includes(keyword)
-      );
-      if (!filterRestaurants.length) {
-        res.render("notFound", { keyword: req.query.keyword });
-      } else {
-        res.render("index", {
-          restaurants: filterRestaurants,
-          keyword: req.query.keyword,
-        });
-      }
-    })
-    .catch((error) => {
-      console.log("error");
-    });
-});
+// 將 request 導入路由器
+app.use(routes);
 
 app.listen(port, () => {
   console.log(`Express is listening on http://localhost:${port}`);
