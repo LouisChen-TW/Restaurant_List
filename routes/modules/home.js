@@ -8,6 +8,7 @@ router.get("/", (req, res) => {
   restaurantList
     .find()
     .lean()
+    .sort({ _id: "desc" })
     .then((restaurants) => res.render("index", { restaurants }))
     .catch((error) => console.error(error));
 });

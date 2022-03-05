@@ -25,8 +25,31 @@
   </div>
 </div>
 
+<div class="container d-flex justify-content-end">
+  <div class="dropdown">
+    <button
+      class="btn btn-info dropdown-toggle"
+      type="button"
+      id="dropdownMenuButton"
+      data-toggle="dropdown"
+      aria-haspopup="true"
+      aria-expanded="false"
+    >
+      請選擇排序
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a class="dropdown-item" href="/sort/atoz">A -> Z</a>
+      <a class="dropdown-item" href="/sort/ztoa">Z -> A</a>
+      <a class="dropdown-item" href="/sort/ratingasc">評分低至高</a>
+      <a class="dropdown-item" href="/sort/ratingdesc">評分高至低</a>
+      <a class="dropdown-item" href="/sort/category">Category</a>
+      <a class="dropdown-item" href="/sort/area">Area</a>
+    </div>
+  </div>
+</div>
+
 <!-- restaurant list -->
-<div class="container mt-5">
+<div class="container mt-3">
   <div class="row">
     <div class="col-md-10 col-12 mx-auto">
       <div class="card-columns">
