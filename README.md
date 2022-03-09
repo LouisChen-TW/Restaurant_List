@@ -33,6 +33,9 @@
 
 - 使用者可以透過搜尋餐廳類別來找到特定的餐廳
 
+- 使用者可以添加餐廳至主畫面
+- 使用者可以在主畫面依照不同類別來排序餐廳
+
 ---
 
 ### 開始使用
@@ -54,5 +57,7 @@
 - Node.js 16.14.0
 - Express 4.17.2
 - Express-Handlebars 3.0.0
+- Method-override 3.0.0
+- Mongoose 6.2.1
 - Bootstrap 4.3.1
 - Font-awesome 5.15.4
