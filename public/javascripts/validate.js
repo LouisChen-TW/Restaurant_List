@@ -1,14 +1,14 @@
-const submitButton = document.querySelector("#submitButton");
-const form = document.querySelector("#form");
+const submitButton = document.querySelector('#submitButton')
+const form = document.querySelector('#form')
 
 form.addEventListener(
-  "submit",
+  'submit',
   function (event) {
     if (!form.checkValidity()) {
-      event.preventDefault();
-      event.stopPropagation();
+      event.preventDefault()
+      event.stopPropagation()
     }
-    form.classList.add("was-validated");
+    form.classList.add('was-validated')
   },
   false
-);
+)

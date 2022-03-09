@@ -1,16 +1,16 @@
 // 引用 Express 與 Express 路由器
-const express = require("express");
-const router = express.Router();
+const express = require('express')
+const router = express.Router()
 
-const restaurantList = require("../../models/restaurant");
+const restaurantList = require('../../models/restaurant')
 // render index page
-router.get("/", (req, res) => {
+router.get('/', (req, res) => {
   restaurantList
     .find()
     .lean()
-    .sort({ _id: "desc" })
-    .then((restaurants) => res.render("index", { restaurants }))
-    .catch((error) => console.error(error));
-});
+    .sort({ _id: 'desc' })
+    .then((restaurants) => res.render('index', { restaurants }))
+    .catch((error) => console.error(error))
+})
 
-module.exports = router;
+module.exports = router
