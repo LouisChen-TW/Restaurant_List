@@ -57,7 +57,7 @@ router.get('/:id', (req, res) => {
     .then((restaurant) => {
       res.render('show', { restaurant })
     })
-    .catch((error) => console.log('error'))
+    .catch((error) => console.log(error))
 })
 
 module.exports = router

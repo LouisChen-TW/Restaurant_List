@@ -1,4 +1,4 @@
-const submitButton = document.querySelector('#submitButton')
+// const submitButton = document.querySelector('#submitButton')
 const form = document.querySelector('#form')
 
 form.addEventListener(

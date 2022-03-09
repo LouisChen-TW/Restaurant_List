@@ -21,12 +21,12 @@ router.get('/', (req, res) => {
       } else {
         res.render('index', {
           restaurants: filterRestaurants,
-          keyword: req.query.keyword,
+          keyword: req.query.keyword
         })
       }
     })
     .catch((error) => {
-      console.log('error')
+      console.log(error)
     })
 })
 
