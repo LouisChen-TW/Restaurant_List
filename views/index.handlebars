@@ -23,27 +23,24 @@
       </form>
     </div>
   </div>
-</div>
-
-<div class='container d-flex justify-content-end mt-2'>
-  <div class='dropdown'>
-    <button
-      class='btn btn-info dropdown-toggle'
-      type='button'
-      id='dropdownMenuButton'
-      data-toggle='dropdown'
-      aria-haspopup='true'
-      aria-expanded='false'
-    >
-      請選擇排序
-    </button>
-    <div class='dropdown-menu' aria-labelledby='dropdownMenuButton'>
-      <a class='dropdown-item' href='/sort/atoz'>Name(A -> Z)</a>
-      <a class='dropdown-item' href='/sort/ztoa'>Name(Z -> A)</a>
-      <a class='dropdown-item' href='/sort/ratingasc'>Rating(1 -> 5)</a>
-      <a class='dropdown-item' href='/sort/ratingdesc'>Rating(5 -> 1)</a>
-      <a class='dropdown-item' href='/sort/category'>Category</a>
-      <a class='dropdown-item' href='/sort/area'>Area</a>
+  <div class='row d-flex mt-1 p-2 justify-content-end'>
+    <div class='col-3 col-lg-2'>
+      <form action='/'>
+        <select
+          name='sort'
+          class='w-100 rounded'
+          style='height: 38px;'
+          onchange='this.form.submit();'
+        >
+          <option value='0' {{selected sort '0'}}>預設排序(新增時間)</option>
+          <option value='1' {{selected sort '1'}}>A->Z</option>
+          <option value='2' {{selected sort '2'}}>Z->A</option>
+          <option value='3' {{selected sort '3'}}>類別</option>
+          <option value='4' {{selected sort '4'}}>地區</option>
+          <option value='5' {{selected sort '5'}}>評分(低至高)</option>
+          <option value='6' {{selected sort '6'}}>評分(高至低)</option>
+        </select>
+      </form>
     </div>
   </div>
 </div>

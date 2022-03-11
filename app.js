@@ -12,7 +12,21 @@ const port = 3000
 app.use(bodyParser.urlencoded({ extended: true }))
 
 // express template engine
-app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
+app.engine(
+  'handlebars',
+  exphbs({
+    defaultLayout: 'main',
+    helpers: {
+      selected: function (option, value) {
+        if (option === value) {
+          return 'selected'
+        } else {
+          return ''
+        }
+      },
+    },
+  })
+)
 app.set('view engine', 'handlebars')
 
 // setting static files
