@@ -1,8 +1,10 @@
 const express = require('express')
+const session = require('express-session')
 const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 const routes = require('./routes')
+const usePassport = require('./config/passport')
 require('./config/mongoose')
 
 const app = express()
@@ -29,11 +31,23 @@ app.engine(
 )
 app.set('view engine', 'handlebars')
 
+//setting session
+app.use(
+  session({
+    secret: 'thisismysecret',
+    resave: false,
+    saveUninitialized: true,
+  })
+)
+
 // setting static files
 app.use(express.static('public'))
 
 // use methodoverride
 app.use(methodOverride('_method'))
+
+// using passport
+usePassport(app)
 
 // 將 request 導入路由器
 app.use(routes)
