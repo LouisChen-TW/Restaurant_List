@@ -6,12 +6,15 @@ const home = require('./modules/home')
 const search = require('./modules/search')
 const restaurants = require('./modules/restaurants')
 const sort = require('./modules/sort')
+const users = require('./modules/users')
 
 // 準備引入路由模組
-router.use('/', home)
+
+router.use('/users', users)
 router.use('/search', search)
 router.use('/restaurants', restaurants)
 router.use('/sort', sort)
+router.use('/', home)
 
 // 匯出路由器
 module.exports = router
