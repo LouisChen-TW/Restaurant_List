@@ -8,13 +8,15 @@ const restaurants = require('./modules/restaurants')
 const sort = require('./modules/sort')
 const users = require('./modules/users')
 
+const { authenticator } = require('../middleware/auth')
+
 // 準備引入路由模組
 
 router.use('/users', users)
 router.use('/search', search)
-router.use('/restaurants', restaurants)
+router.use('/restaurants', authenticator, restaurants)
 router.use('/sort', sort)
-router.use('/', home)
+router.use('/', authenticator, home)
 
 // 匯出路由器
 module.exports = router
