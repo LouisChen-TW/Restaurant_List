@@ -6,8 +6,9 @@ const restaurantList = require('../../models/restaurant')
 // render index page
 router.get('/', (req, res) => {
   const sortCondition = getSortQuery(Number(req.query.sort))
+  const userId = req.user._id
   restaurantList
-    .find()
+    .find({ userId })
     .lean()
     .sort(sortCondition) // eg. {_id: 'desc'}
     .then((restaurants) =>
