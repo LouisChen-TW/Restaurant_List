@@ -7,15 +7,14 @@ const search = require('./modules/search')
 const restaurants = require('./modules/restaurants')
 const sort = require('./modules/sort')
 const users = require('./modules/users')
-
 const { authenticator } = require('../middleware/auth')
 
 // 準備引入路由模組
 
 router.use('/users', users)
-router.use('/search', search)
+router.use('/search', authenticator, search)
 router.use('/restaurants', authenticator, restaurants)
-router.use('/sort', sort)
+router.use('/sort', authenticator, sort)
 router.use('/', authenticator, home)
 
 // 匯出路由器
