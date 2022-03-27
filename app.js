@@ -49,6 +49,16 @@ app.use(methodOverride('_method'))
 // using passport
 usePassport(app)
 
+// put setting in res.locals for view using
+app.use((req, res, next) => {
+  let path
+  if (req.path === '/users/login') path = false
+  res.locals.path = path
+  res.locals.isAuthenticated = req.isAuthenticated()
+  res.locals.user = req.user
+  next()
+})
+
 // 將 request 導入路由器
 app.use(routes)
 
