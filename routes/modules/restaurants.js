@@ -6,10 +6,10 @@ const restaurantList = require('../../models/restaurant')
 
 // render edit page
 router.get('/:id/edit', (req, res) => {
-  const id = req.params.id
+  const _id = req.params.id
   const userId = req.user._id
   restaurantList
-    .findOne({ id, userId })
+    .findOne({ _id, userId })
     .lean()
     .then((restaurant) => res.render('edit', { restaurant }))
     .catch((error) => console.log(error))
@@ -17,21 +17,21 @@ router.get('/:id/edit', (req, res) => {
 
 // save edit page
 router.put('/:id', (req, res) => {
-  const id = req.params.id
+  const _id = req.params.id
   const userId = req.user._id
   const newRestaurant = req.body
   return restaurantList
-    .findOneAndUpdate({ id, userId }, newRestaurant)
+    .findOneAndUpdate({ _id, userId }, newRestaurant)
     .then(res.redirect('/'))
     .catch((error) => console.log(error))
 })
 
 // delete restaurant
 router.delete('/:id', (req, res) => {
-  const id = req.params.id
+  const _id = req.params.id
   const userId = req.user._id
   restaurantList
-    .findOne({ id, userId })
+    .findOne({ _id, userId })
     .then((restaurant) => restaurant.remove())
     .then(res.redirect('/'))
     .catch((error) => console.log(error))
@@ -44,10 +44,10 @@ router.get('/create', (req, res) => {
 
 // render show page
 router.get('/:id', (req, res) => {
-  const id = req.params.id
+  const _id = req.params.id
   const userId = req.user._id
   return restaurantList
-    .findOne({ id, userId })
+    .findOne({ _id, userId })
     .lean()
     .then((restaurant) => {
       res.render('show', { restaurant })
