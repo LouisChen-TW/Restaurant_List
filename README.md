@@ -24,15 +24,15 @@
   - 餐廳評分
 
 - 使用者可以再點進去看餐廳的詳細資訊：
+
   - 類別
   - 地址
   - 電話
   - 描述
   - 圖片
+
 - 使用者可以透過搜尋餐廳名稱來找到特定的餐廳
-
 - 使用者可以透過搜尋餐廳類別來找到特定的餐廳
-
 - 使用者可以添加餐廳至主畫面
 - 使用者可以在主畫面依照不同類別來排序餐廳
 
@@ -52,12 +52,26 @@
 6. 若欲暫停使用
    `ctrl + c`
 
+### .env 資料
+
+Please create .env file and include below items
+
+1. FACEBOOK_ID=[your FACEBOOK_ID]
+2. FACEBOOK_SECRET=[your FACEBOOK_SECRET]
+3. FACEBOOK_CALLBACK=http://localhost:3000/auth/facebook/callback
+4. SESSION_SECRET= [insert the secret you want]
+5. PORT=3000
+
 ### 開發工具
 
-- Node.js 16.14.0
+- Node.js 14.19.1
 - Express 4.17.2
 - Express-Handlebars 3.0.0
 - Method-override 3.0.0
 - Mongoose 6.2.1
 - Bootstrap 4.3.1
 - Font-awesome 5.15.4
+- Passport 0.4.1
+- Passport-facebook 3.0.0
+- Passport-local 1.0.0
+- connect-flash 0.1.1
