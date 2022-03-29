@@ -25,12 +25,11 @@
               class='d-inline-block align-top'
               alt='我的餐廳清單'
             />
-            <strong>
-              {{#if isAuthenticated}}
-                {{user.name}}
-              {{/if}}
-            </strong>
-            的餐廳清單
+
+            {{#if isAuthenticated}}
+              <strong>{{user.name}}</strong>'s
+            {{/if}}
+            餐廳清單
           </a>
 
           {{#if isAuthenticated}}
